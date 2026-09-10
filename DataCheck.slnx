@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DataCheck.Cli/DataCheck.Cli.csproj" />
+  <Project Path="DataCheck.Core/DataCheck.Core.csproj" />
+</Solution>
