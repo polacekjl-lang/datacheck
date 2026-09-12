@@ -13,5 +13,10 @@
         {
             return $"Zákazník {Nazev}, pojišťovna: {KodPojistovny ?? "neuvedena"}";
         }
+
+        public override bool MaPovinneUdaje()
+        {
+            return !string.IsNullOrWhiteSpace(Nazev);
+        }
     }
 }

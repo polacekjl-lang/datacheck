@@ -35,3 +35,11 @@ foreach (var nalez in nalezy)
 {
     Console.WriteLine(nalez);
 }
+
+Console.WriteLine();
+Console.WriteLine("--- Kontrola povinných údajů ---");
+
+foreach (var s in subjekty)
+{
+    Console.WriteLine($"{s.Popis()} → povinné údaje: {s.MaPovinneUdaje()}");
+}
