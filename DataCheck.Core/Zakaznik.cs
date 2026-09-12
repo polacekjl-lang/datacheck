@@ -8,5 +8,10 @@
             : base(id, nazev)
         {
         }
+
+        public override string Popis()
+        {
+            return $"Zákazník {Nazev}, pojišťovna: {KodPojistovny ?? "neuvedena"}";
+        }
     }
 }

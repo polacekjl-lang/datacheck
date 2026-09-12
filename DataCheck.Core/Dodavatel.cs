@@ -16,7 +16,12 @@ namespace DataCheck.Core
             Ico = ico;
 
         }
-    }
-}
+        public override string Popis()
+        {
+            return $"Dodavatel {Nazev} (IČO {Ico}), účet: {CisloUctu ?? "chybí"}";
+        }
 
+    }
+
+}
 

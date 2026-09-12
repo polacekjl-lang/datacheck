@@ -14,3 +14,9 @@ var zakaznik = new Zakaznik(2, "Ordinace Novák")
     KodPojistovny = "111"
 };
 
+List<Subjekt> vsechny = new List<Subjekt> { dodavatel, zakaznik };
+
+foreach (var s in vsechny)
+{
+    Console.WriteLine(s.Popis());
+}

@@ -23,5 +23,9 @@ namespace DataCheck.Core
         {
             return $"[{Id}] {Nazev} (IČO: {Ico ?? "neuvedeno"})";
         }
+        public virtual string Popis()
+        {
+            return $"Subjekt {Nazev}";
+        }
     }
 }
