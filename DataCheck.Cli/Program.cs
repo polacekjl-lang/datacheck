@@ -11,14 +11,17 @@ var subjekty = new List<Subjekt>
     },
     new Dodavatel(2, "Špatné IČO s.r.o.", "1234"),
     new Dodavatel(3, "Písmena v IČO", "ABCD1234"),
-    new Zakaznik(4, "Ordinace Novák") { KodPojistovny = "111" },
-    new Zakaznik(5, "   ")
+    new Dodavatel(4, "Špatné PSČ s.r.o.", "12345678") { Psc = "5700" },
+    new Dodavatel(5, "PSČ s mezerou s.r.o.", "12345678") { Psc = "570 01" },
+    new Zakaznik(6, "Ordinace Novák") { KodPojistovny = "111" },
+    new Zakaznik(7, "   ")
 };
 
 var pravidla = new List<IPravidlo>
 {
     new NazevNeniPrazdny(),
-    new IcoMaOsmCislic()
+    new IcoMaOsmCislic(),
+    new PscMaPetCislic()
 };
 
 var kontrolor = new Kontrolor(pravidla);
