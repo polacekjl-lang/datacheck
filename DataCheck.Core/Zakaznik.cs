@@ -8,5 +8,15 @@
             : base(id, nazev)
         {
         }
+
+        public override string Popis()
+        {
+            return $"Zákazník {Nazev}, pojišťovna: {KodPojistovny ?? "neuvedena"}";
+        }
+
+        public override bool MaPovinneUdaje()
+        {
+            return !string.IsNullOrWhiteSpace(Nazev);
+        }
     }
 }
