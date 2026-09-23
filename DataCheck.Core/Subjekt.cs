@@ -22,6 +22,8 @@
 
         public abstract bool MaPovinneUdaje();
 
+        public string Typ => GetType().Name;
+
         public override string ToString()
         {
             return $"[{Id}] {Nazev} (IČO: {Ico ?? "neuvedeno"})";
