@@ -15,13 +15,20 @@
         public string Popis { get; private set; }
         public DateTime Zjisteno { get; private set; }
 
+        // Vznik nového nálezu při kontrole
         public Nalez(int subjektId, string kodPravidla, Zavaznost zavaznost, string popis)
+            : this(subjektId, kodPravidla, zavaznost, popis, DateTime.Now)
+        {
+        }
+
+        // Načtení existujícího nálezu z databáze
+        public Nalez(int subjektId, string kodPravidla, Zavaznost zavaznost, string popis, DateTime zjisteno)
         {
             SubjektId = subjektId;
             KodPravidla = kodPravidla;
             Zavaznost = zavaznost;
             Popis = popis;
-            Zjisteno = DateTime.Now;
+            Zjisteno = zjisteno;
         }
 
         public override string ToString()

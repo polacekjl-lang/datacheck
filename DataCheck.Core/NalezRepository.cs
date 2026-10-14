@@ -11,6 +11,33 @@ namespace DataCheck.Core
             _connectionString = connectionString;
         }
 
+        public List<Nalez> NactiVsechny()
+        {
+            var nalezy = new List<Nalez>();
+
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var sql = @"SELECT SubjektId, KodPravidla, Zavaznost, Popis, Zjisteno
+                        FROM Nalezy
+                        ORDER BY Zjisteno DESC";
+
+            using var command = new SqlCommand(sql, connection);
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                nalezy.Add(new Nalez(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    Enum.Parse<Zavaznost>(reader.GetString(2)),
+                    reader.GetString(3),
+                    reader.GetDateTime(4)));
+            }
+
+            return nalezy;
+        }
+
         public void UlozVse(List<Nalez> nalezy)
         {
             using var connection = new SqlConnection(_connectionString);
