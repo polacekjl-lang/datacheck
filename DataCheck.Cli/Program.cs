@@ -19,8 +19,8 @@ var nalezy = kontrolor.Zkontroluj(subjekty);
 
 Console.WriteLine($"Nalezeno problémů: {nalezy.Count}");
 
-nalezRepo.UlozVse(nalezy);
-Console.WriteLine("Nálezy uloženy do databáze.");
+nalezRepo.NahradVse(nalezy);
+Console.WriteLine("Nálezy uloženy do databáze (předchozí výsledky nahrazeny).");
 Console.WriteLine();
 
 foreach (var nalez in nalezy)

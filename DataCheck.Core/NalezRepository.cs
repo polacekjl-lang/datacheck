@@ -38,25 +38,42 @@ namespace DataCheck.Core
             return nalezy;
         }
 
-        public void UlozVse(List<Nalez> nalezy)
+        public void NahradVse(List<Nalez> nalezy)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
-            var sql = @"INSERT INTO Nalezy (SubjektId, KodPravidla, Zavaznost, Popis, Zjisteno)
-                        VALUES (@SubjektId, @KodPravidla, @Zavaznost, @Popis, @Zjisteno)";
+            using var transaction = connection.BeginTransaction();
 
-            foreach (var nalez in nalezy)
+            try
             {
-                using var command = new SqlCommand(sql, connection);
+                using (var smazat = new SqlCommand("DELETE FROM Nalezy", connection, transaction))
+                {
+                    smazat.ExecuteNonQuery();
+                }
 
-                command.Parameters.AddWithValue("@SubjektId", nalez.SubjektId);
-                command.Parameters.AddWithValue("@KodPravidla", nalez.KodPravidla);
-                command.Parameters.AddWithValue("@Zavaznost", nalez.Zavaznost.ToString());
-                command.Parameters.AddWithValue("@Popis", nalez.Popis);
-                command.Parameters.AddWithValue("@Zjisteno", nalez.Zjisteno);
+                var sql = @"INSERT INTO Nalezy (SubjektId, KodPravidla, Zavaznost, Popis, Zjisteno)
+                            VALUES (@SubjektId, @KodPravidla, @Zavaznost, @Popis, @Zjisteno)";
 
-                command.ExecuteNonQuery();
+                foreach (var nalez in nalezy)
+                {
+                    using var command = new SqlCommand(sql, connection, transaction);
+
+                    command.Parameters.AddWithValue("@SubjektId", nalez.SubjektId);
+                    command.Parameters.AddWithValue("@KodPravidla", nalez.KodPravidla);
+                    command.Parameters.AddWithValue("@Zavaznost", nalez.Zavaznost.ToString());
+                    command.Parameters.AddWithValue("@Popis", nalez.Popis);
+                    command.Parameters.AddWithValue("@Zjisteno", nalez.Zjisteno);
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
             }
         }
     }
